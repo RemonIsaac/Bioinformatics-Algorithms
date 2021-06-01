@@ -91,4 +91,5 @@ def waterman(a, b, match, mismatch, gap):
     final = traceback(a, b, dot_arr, my, mx)
     p(final)
 
+#Main testcase
 waterman(a = "ACGTTGACCTGTAACCTC" , b = "ACCTTGTCCTCTTTGCCC", match = 2, mismatch=-1, gap = -1)

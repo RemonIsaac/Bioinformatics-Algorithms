@@ -92,5 +92,6 @@ def needleman(a, b, match, mismatch, gap):
     final = traceback(a, b, dot_arr, len(a) + 1, len(b) + 1)
     p(final)
 
+#Main testcase
 needleman(a = "ACGTTGACCTGTAACCTC" , b = "ACCTTGTCCTCTTTGCCC", match = 2, mismatch=-1, gap = -1)
 
