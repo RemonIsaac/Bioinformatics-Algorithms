@@ -11,20 +11,26 @@ def waterman(a, b, match, mismatch, gap):
         cnt = 1
         for i in alligns:   
             print(f'\n({cnt})\n')
+            count = 0
             for j in i:
-                print(j)
+                if count == 2: 
+                    print(f'Score: {j}')
+                else:
+                    print(j)
+                count += 1
             cnt += 1
 
     def traceback(seq1, seq2, dot_arr, col, row):
         allign = []
         if dot_arr[row][col] == 0: 
-            return [["", ""]]
+            return [["", "", 0]]
 
         if seq1[col-2] == seq2[row-2]:
             vals = traceback(seq1, seq2, dot_arr, col - 1, row - 1)
             for value in vals:
                 value[0] += seq1[col-2]
                 value[1] += seq1[col-2]
+                value[2] += match
             allign += vals
         else:
             up = dot_arr[row - 1][col] 
@@ -36,18 +42,21 @@ def waterman(a, b, match, mismatch, gap):
                 for value in vals:
                     value[0] += '-'
                     value[1] += seq2[row - 2]
+                    value[2] += gap
                 allign += vals
             if maxi == left:
                 vals = traceback(seq1, seq2, dot_arr, col - 1, row)
                 for value in vals:
                     value[0] += seq1[col - 2]
                     value[1] += '-'
+                    value[2] += gap
                 allign += vals
             if maxi == diagonal: 
                 vals = traceback(seq1, seq2, dot_arr, col - 1, row - 1)
                 for value in vals:
                     value[0] += seq1[col - 2]
                     value[1] += seq2[row - 2]
+                    value[2] += mismatch
                 allign += vals
         return allign
 
@@ -82,3 +91,4 @@ def waterman(a, b, match, mismatch, gap):
     final = traceback(a, b, dot_arr, my, mx)
     p(final)
 
+waterman(a = "ACGTTGACCTGTAACCTC" , b = "ACCTTGTCCTCTTTGCCC", match = 2, mismatch=-1, gap = -1)
